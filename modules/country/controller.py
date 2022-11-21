@@ -13,7 +13,7 @@ country_bp = Blueprint("country", __name__)
 
 
 @country_bp.route("/register", methods=["POST"])
-def add_countrie():
+def add_country():
     """Function to add a country."""
     data = request.json
     name = data["name"]
@@ -21,7 +21,7 @@ def add_countrie():
     for country in countries:
         if name == country["name"]:
             return (
-                jsonify({"Mensaje": "Ya existe un pais con ese nombre"}),
+                jsonify({"message": "Ya existe un pais con ese nombre"}),
                 404,
             )
     insert_db = insert(Country).values(data)
@@ -29,8 +29,8 @@ def add_countrie():
     db.session.commit()
     return (
         jsonify(
-            {"Mensaje": "El pais se creo correctamente"},
-            {"Pais": name},
+            {"message": "El pais se creo correctamente"},
+            {"data": name},
         ),
         201,
     )
@@ -38,21 +38,21 @@ def add_countrie():
 
 @country_bp.route("/list", methods=["GET"])
 def get_all_countries():
-    """Function to add a country."""
+    """Function to list all countries."""
     countries = find_countries()
-    return jsonify({"Paises": countries}), 201
+    return jsonify({"data": countries})
 
 
 @country_bp.route("/<id>", methods=["GET"])
 def get_country(id):
-    """Function to add a country."""
-    countries = find_country(id)
-    return jsonify({"Paises": countries}), 201
+    """Function to get a country."""
+    country = find_country(id)
+    return jsonify({"data": country})
 
 
 @country_bp.route("/update", methods=["PUT"])
 def update_country():
-    """Function to add a country."""
+    """Function to update a country."""
     data = request.json
     id = data["id"]
     exists = find_exists_country(id)
@@ -62,5 +62,5 @@ def update_country():
         )
         db.session.execute(update_db)
         db.session.commit()
-        return jsonify({"Message": "El pais se actualizo correctamente"})
-    return jsonify({"Message": "El pais no existe"})
+        return jsonify({"message": "El pais se actualizo correctamente"})
+    return jsonify({"message": "El pais no existe"})
