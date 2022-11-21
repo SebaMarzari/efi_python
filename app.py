@@ -1,13 +1,9 @@
-# import hashlib
-# import jwt
-from datetime import datetime, timedelta
-from functools import wraps
-
 from flask import Flask
 from flask_migrate import Migrate
 
 from config import database, schema
 from modules.country.controller import country_bp
+from modules.dni_type.controller import dni_type_bp
 
 app = Flask(__name__)
 app.config[
@@ -22,10 +18,12 @@ schema.init_app(app)
 
 migrate = Migrate(app, database.db)
 from modules.country.model import Country
+from modules.dni_type.model import DniType
 
 
 # Register blueprints
 app.register_blueprint(country_bp, url_prefix="/countries")
+app.register_blueprint(dni_type_bp, url_prefix="/dni_type")
 
 
 # Serializadores
