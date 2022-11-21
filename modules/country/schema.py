@@ -4,6 +4,6 @@ from config.schema import ma
 
 
 class CountrySchema(ma.Schema):
-    """Schema for table country without id."""
+    """Schema for table DniType without id."""
     id = fields.Integer(dump_only=True)
     name = fields.String()
