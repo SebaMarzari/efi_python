@@ -13,8 +13,10 @@ def find_dni_types():
 
 def find_dni_type(id: str) -> dict:
     """Function to find a dni type."""
-    query = db.session.query(DniTypeModel).filter(DniTypeModel.id == id).all()
-    schema = DniTypeSchema().dump(query, many=True)
+    query = (
+        db.session.query(DniTypeModel).filter(DniTypeModel.id == id).first()
+    )
+    schema = DniTypeSchema().dump(query, many=False)
     return schema
 
 

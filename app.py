@@ -5,6 +5,7 @@ from config import database, schema
 from modules.country.controller import country_bp
 from modules.dni_type.controller import dni_type_bp
 from modules.gender.controller import gender_bp
+from modules.province.controller import province_bp
 
 app = Flask(__name__)
 app.config[
@@ -21,11 +22,13 @@ migrate = Migrate(app, database.db)
 from modules.country.model import CountryModel
 from modules.dni_type.model import DniTypeModel
 from modules.gender.model import GenderModel
+from modules.province.model import ProvinceModel
 
 # Register blueprints
 app.register_blueprint(country_bp, url_prefix="/countries")
 app.register_blueprint(dni_type_bp, url_prefix="/dni_type")
 app.register_blueprint(gender_bp, url_prefix="/gender")
+app.register_blueprint(province_bp, url_prefix="/province")
 
 
 # Serializadores

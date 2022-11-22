@@ -13,8 +13,8 @@ def find_genders():
 
 def find_gender(id: str) -> dict:
     """Function to find a gender."""
-    query = db.session.query(GenderModel).filter(GenderModel.id == id).all()
-    schema = GenderSchema().dump(query, many=True)
+    query = db.session.query(GenderModel).filter(GenderModel.id == id).first()
+    schema = GenderSchema().dump(query, many=False)
     return schema
 
 
