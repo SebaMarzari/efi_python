@@ -1,6 +1,6 @@
 from config.database import db
 from flask import Blueprint, jsonify, request
-from modules.country.model import Country
+from modules.country.model import CountryModel
 from modules.country.repository import (
     find_countries,
     find_country,
@@ -24,7 +24,7 @@ def add_country():
                 jsonify({"message": "Ya existe un pais con ese nombre"}),
                 404,
             )
-    insert_db = insert(Country).values(data)
+    insert_db = insert(CountryModel).values(data)
     db.session.execute(insert_db)
     db.session.commit()
     return (
@@ -58,7 +58,9 @@ def update_country():
     exists = find_exists_country(id)
     if exists:
         update_db = (
-            update(Country).where(Country.id == data["id"]).values(data)
+            update(CountryModel)
+            .where(CountryModel.id == data["id"])
+            .values(data)
         )
         db.session.execute(update_db)
         db.session.commit()

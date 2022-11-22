@@ -1,7 +1,7 @@
 from config.database import db
 
 
-class DniType(db.Model):
+class DniTypeModel(db.Model):
     __tablename__ = 'dniType'
 
     id = db.Column(db.Integer, primary_key=True)

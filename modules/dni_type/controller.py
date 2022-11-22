@@ -1,6 +1,6 @@
 from config.database import db
 from flask import Blueprint, jsonify, request
-from modules.dni_type.model import DniType
+from modules.dni_type.model import DniTypeModel
 from modules.dni_type.repository import (
     find_dni_types,
     find_dni_type,
@@ -26,7 +26,7 @@ def add_dni_type():
                 ),
                 404,
             )
-    insert_db = insert(DniType).values(data)
+    insert_db = insert(DniTypeModel).values(data)
     db.session.execute(insert_db)
     db.session.commit()
     return (
@@ -42,14 +42,14 @@ def add_dni_type():
 def get_all_dni_type():
     """Function to list all dni types."""
     dni_types = find_dni_types()
-    return jsonify({"data": dni_types}), 201
+    return jsonify({"data": dni_types})
 
 
 @dni_type_bp.route("/<id>", methods=["GET"])
 def get_dni_type(id):
     """Function to get a type dni."""
     dni_type = find_dni_type(id)
-    return jsonify({"data": dni_type}), 201
+    return jsonify({"data": dni_type})
 
 
 @dni_type_bp.route("/update", methods=["PUT"])
@@ -60,9 +60,13 @@ def update_dni_type():
     exists = find_exists_dni_type(id)
     if exists:
         update_db = (
-            update(DniType).where(DniType.id == data["id"]).values(data)
+            update(DniTypeModel)
+            .where(DniTypeModel.id == data["id"])
+            .values(data)
         )
         db.session.execute(update_db)
         db.session.commit()
-        return jsonify({"message": "El tipo de dni se actualizo correctamente"})
+        return jsonify(
+            {"message": "El tipo de dni se actualizo correctamente"}
+        )
     return jsonify({"message": "El tipo de dni no existe"})

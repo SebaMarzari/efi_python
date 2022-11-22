@@ -1,7 +1,7 @@
 from config.database import db
 
 
-class Country(db.Model):
+class CountryModel(db.Model):
     """Create a Country table."""
     __tablename__ = 'country'
 

@@ -1,9 +1,8 @@
-"""Module for create schema for the Appliances Availability table."""
 from marshmallow import fields
 from config.schema import ma
 
 
 class CountrySchema(ma.Schema):
-    """Schema for table DniType without id."""
+    """Schema for table country."""
     id = fields.Integer(dump_only=True)
     name = fields.String()
