@@ -19,7 +19,7 @@ def add_gender():
     """Function to add a province."""
     data = request.json
     name = data["name"]
-    id_country = data["idCountry"]
+    id_country = data["id_country"]
     if not id_country:
         return jsonify({"message": "Debe ingresar un país"})
     exists_country = find_exists_country(id_country)
@@ -27,7 +27,7 @@ def add_gender():
         return jsonify({"message": "No existe el país"})
     provinces = find_provinces()
     for province in provinces:
-        if name == province["name"] and id_country == province["idCountry"]:
+        if name == province["name"] and id_country == province["id_country"]:
             msg = "Ya existe una provincia en este pais con ese nombre"
             return (
                 jsonify({"message": msg}),
@@ -56,18 +56,20 @@ def get_all_provinces():
 def get_province(id):
     """Function to get a province."""
     data = request.json
-    idCountry = data["idCountry"]
-    if not idCountry:
+    id_country = data["id_country"]
+    if not id_country:
         return jsonify({"message": "Debe ingresar un país"})
-    exists_country = find_exists_country(idCountry)
+    exists_country = find_exists_country(id_country)
     if not exists_country:
         return jsonify({"message": "No existe el país"})
-    exists = find_exists_province(id, data["idCountry"])
+    exists = find_exists_province(id, data["id_country"])
+    if not exists:
+        return jsonify({"message": "El tipo de usuario no existe"})
     if not exists:
         return jsonify(
             {"message": "No existe una provincia en este pais con ese nombre"}
         )
-    province = find_province(id, idCountry)
+    province = find_province(id, id_country)
     return jsonify({"data": province})
 
 
@@ -76,15 +78,15 @@ def update_province():
     """Function to update a province."""
     data = request.json
     id = data["id"]
-    idCountry = data["idCountry"]
-    if not idCountry:
+    id_country = data["id_country"]
+    if not id_country:
         return jsonify({"message": "Debe ingresar un país"})
-    exists_country = find_exists_country(idCountry)
+    exists_country = find_exists_country(id_country)
     if not exists_country:
         return jsonify({"message": "No existe el país"})
-    exists = find_exists_province(id, idCountry)
-    if idCountry:
-        data.pop("idCountry")
+    exists = find_exists_province(id, id_country)
+    if id_country:
+        data.pop("id_country")
     if exists:
         update_db = (
             update(ProvinceModel)

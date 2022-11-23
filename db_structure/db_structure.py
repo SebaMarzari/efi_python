@@ -1,12 +1,5 @@
 
 
-# class Province(db.Model):
-#     __tablename__ = 'province'
-
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(100), nullable=False)
-#     idContry = db.Column(db.Integer, ForeignKey('country.id'))
-
 
 # class Location(db.Model):
 #     __tablename__ = 'location'

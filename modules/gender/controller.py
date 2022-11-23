@@ -46,6 +46,9 @@ def get_all_genders():
 @gender_bp.route("/<id>", methods=["GET"])
 def get_gender(id):
     """Function to get a gender."""
+    exists = find_exists_gender(id)
+    if not exists:
+        return jsonify({"message": "El género no existe"})
     gender = find_gender(id)
     return jsonify({"data": gender})
 
@@ -64,7 +67,5 @@ def update_gender():
         )
         db.session.execute(update_db)
         db.session.commit()
-        return jsonify(
-            {"message": "El género se actualizo correctamente"}
-        )
+        return jsonify({"message": "El género se actualizo correctamente"})
     return jsonify({"message": "El género no existe"})

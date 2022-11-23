@@ -21,7 +21,7 @@ def add_country():
     for country in countries:
         if name == country["name"]:
             return (
-                jsonify({"message": "Ya existe un pais con ese nombre"}),
+                jsonify({"message": "Ya existe un país con ese nombre"}),
                 404,
             )
     insert_db = insert(CountryModel).values(data)
@@ -29,7 +29,7 @@ def add_country():
     db.session.commit()
     return (
         jsonify(
-            {"message": "El pais se creo correctamente"},
+            {"message": "El país se creo correctamente"},
             {"data": name},
         ),
         201,
@@ -46,6 +46,9 @@ def get_all_countries():
 @country_bp.route("/<id>", methods=["GET"])
 def get_country(id):
     """Function to get a country."""
+    exists = find_exists_country(id)
+    if not exists:
+        return jsonify({"message": "El país no existe"})
     country = find_country(id)
     return jsonify({"data": country})
 
@@ -64,5 +67,5 @@ def update_country():
         )
         db.session.execute(update_db)
         db.session.commit()
-        return jsonify({"message": "El pais se actualizo correctamente"})
-    return jsonify({"message": "El pais no existe"})
+        return jsonify({"message": "El país se actualizo correctamente"})
+    return jsonify({"message": "El país no existe"})

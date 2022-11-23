@@ -48,6 +48,9 @@ def get_all_dni_type():
 @dni_type_bp.route("/<id>", methods=["GET"])
 def get_dni_type(id):
     """Function to get a type dni."""
+    exists = find_exists_dni_type(id)
+    if not exists:
+        return jsonify({"message": "El tipo de dni no existe"})
     dni_type = find_dni_type(id)
     return jsonify({"data": dni_type})
 

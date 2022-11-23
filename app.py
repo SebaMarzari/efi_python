@@ -6,6 +6,7 @@ from modules.country.controller import country_bp
 from modules.dni_type.controller import dni_type_bp
 from modules.gender.controller import gender_bp
 from modules.province.controller import province_bp
+from modules.userType.controller import user_type_bp
 
 app = Flask(__name__)
 app.config[
@@ -23,27 +24,14 @@ from modules.country.model import CountryModel
 from modules.dni_type.model import DniTypeModel
 from modules.gender.model import GenderModel
 from modules.province.model import ProvinceModel
+from modules.userType.model import UserTypeModel
 
 # Register blueprints
 app.register_blueprint(country_bp, url_prefix="/countries")
 app.register_blueprint(dni_type_bp, url_prefix="/dni_type")
 app.register_blueprint(gender_bp, url_prefix="/gender")
 app.register_blueprint(province_bp, url_prefix="/province")
-
-
-# Serializadores
-# class CountrySchema(ma.Schema):
-#     id = fields.Integer(dump_only=True)
-#     name = fields.String()
-
-
-# class CountryWithoutIdSchema(ma.Schema):
-#     name = fields.String()
-
-
-# class ProvinceSchema(ma.Schema):
-#     name = fields.String()
-#     idCountry = fields.Integer()
+app.register_blueprint(user_type_bp, url_prefix="/user_type")
 
 
 # class PersonSchema(ma.Schema):
@@ -67,46 +55,6 @@ app.register_blueprint(province_bp, url_prefix="/province")
 #     id = fields.Integer()
 #     name = fields.String()
 #     idUserType = fields.Integer()
-
-
-# SI NO LE DETERMINO EL METODO; SIEMPRE ES UN GET
-# @app.route('/countries')
-# def get_countries():
-#     country = db.session.query(Country).all()
-#     countrie_schema = CountrySchema().dump(country, many=True)
-#     return jsonify(countrie_schema)
-
-
-# # POST
-# @app.route('/countries', methods=['POST'])
-# def add_countrie():
-#     if request.method == 'POST':
-#         data = request.json
-#         name = data['name']
-#         countries = db.session.query(Country).all()
-#         for country in countries:
-#             if name == country.name:
-#                 return jsonify({"Mensaje":"Ya existe un pais con ese nombre"}),404
-#         new_countrie = Country(name=name)
-#         db.session.add(new_countrie)
-#         db.session.commit()
-#         countrie_schema = CountryWithoutIdSchema().dump(
-#            new_countrie
-#         )
-#         return jsonify(
-#             {"Mensaje":"El pais se creo correctamente"},
-#             {"Pais": countrie_schema}
-#         ), 201
-
-
-# @app.route('/countries_names')
-# def get_country_names():
-
-#     countrie_schema = CountryWithoutIdSchema().dump(
-#         db.session.query(Country).all(), many=True
-#     )
-#     return jsonify(countrie_schema)
-
 
 # @app.route('/persons')
 # def get_persons():
@@ -233,39 +181,6 @@ app.register_blueprint(province_bp, url_prefix="/province")
 #         return f(userLogged, *args, **kwargs)
 
 #     return decorated
-
-# @app.route('/provinces')
-# @token_required
-# def get_provinces(userLogged):
-#     if userLogged.idUserType == 2:
-#         provinces = db.session.query(Province).all()
-#         provice_shemma = ProvinceSchema().dump(provinces, many=True)
-#         return jsonify(provice_shemma)
-#     else:
-#         return jsonify({"Error":"Ud no tiene permiso"})
-
-# @app.route('/provinces', methods=['post'])
-# def add_province():
-#     if request.method == 'POST':
-#         data = request.json
-#         name = data['name']
-#         country_id = data['country_id']
-#         try:
-#             new_province = Province(idContry=country_id, name=name)
-#             db.session.add(new_province)
-#             db.session.commit()
-
-#             provice_schema = ProvinceSchema().dump(new_province)
-
-#             return jsonify(
-#                 {"Mensaje" : "La Provincia se creo correctamente"},
-#                 {"Pais": provice_schema}
-#             ), 201
-
-#         except:
-#             return jsonify(
-#                 {"Mensaje": "Algo salio mal, valide los datos"},
-#             ), 404
 
 
 if __name__ == "__main":

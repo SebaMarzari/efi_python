@@ -41,7 +41,6 @@ def find_province(id: str, idCountry: str) -> dict:
         .filter(ProvinceModel.id == id, ProvinceModel.idCountry == idCountry)
         .first()
     )
-    print(query)
     schema = ProvinceCountrySchema().dump(query, many=False)
     return schema
 
