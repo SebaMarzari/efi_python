@@ -6,9 +6,10 @@ from modules.country.controller import country_bp
 from modules.dni_type.controller import dni_type_bp
 from modules.gender.controller import gender_bp
 from modules.province.controller import province_bp
-from modules.userType.controller import user_type_bp
+from modules.user_type.controller import user_type_bp
 from modules.locations.controller import locations_bp
 from modules.person.controller import person_bp
+from modules.user.controller import user_bp
 
 app = Flask(__name__)
 app.config[
@@ -26,9 +27,10 @@ from modules.country.model import CountryModel
 from modules.dni_type.model import DniTypeModel
 from modules.gender.model import GenderModel
 from modules.province.model import ProvinceModel
-from modules.userType.model import UserTypeModel
+from modules.user_type.model import UserTypeModel
 from modules.locations.model import LocationsModel
 from modules.person.model import PersonModel
+from modules.user.model import UserModel
 
 # Register blueprints
 app.register_blueprint(country_bp, url_prefix="/countries")
@@ -38,56 +40,13 @@ app.register_blueprint(province_bp, url_prefix="/province")
 app.register_blueprint(user_type_bp, url_prefix="/user_type")
 app.register_blueprint(locations_bp, url_prefix="/locations")
 app.register_blueprint(person_bp, url_prefix="/person")
-
-
-# class PersonSchema(ma.Schema):
-#     id = fields.Integer(dump_only=True)
-#     name = fields.String()
-#     idTypeDni = fields.Integer()
-#     dni = fields.Integer()
-#     address = fields.String()
-#     idLocation = fields.Integer()
-#     idCountry = fields.Integer()
-#     countries = fields.Nested(CountrySchema, exclude=['id',])
-#     born = fields.String()
-#     idSex = fields.Integer()
-#     phone = fields.Integer()
-#     mail = fields.String()
-#     uploadDate = fields.Date()
-#     active = fields.Boolean()
+app.register_blueprint(user_bp, url_prefix="/user")
 
 
 # class UserSchema(ma.Schema):
 #     id = fields.Integer()
 #     name = fields.String()
 #     idUserType = fields.Integer()
-
-# @app.route('/persons')
-# def get_persons():
-#     """
-#     Paginado recibe 2 parametros principales
-#     PAGINA (pag) y CANTIDAD (can)
-#     Y un tercer parametro obligatorio que es
-#     error_out que se pude setear como vacio
-#     """
-
-#     try:
-#         can = int(request.args.get('can'))
-#         pag = int(request.args.get('pag'))
-#         persons = Person.query.paginate(pag, can, error_out="No se obtienen valores").items
-#     except:
-#         persons = db.session.query(Person).all()
-#         pag = 1
-#         can = 'Todos'
-
-#     persons_schema = PersonSchema().dump(persons, many=True)
-#     return jsonify(dict(
-#         pagina=pag,
-#         cantidad=can,
-#         result=persons_schema
-#         )
-#     )
-
 
 # @app.route('/users')
 # def get_users():

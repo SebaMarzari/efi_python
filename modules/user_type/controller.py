@@ -1,7 +1,7 @@
 from config.database import db
 from flask import Blueprint, jsonify, request
-from modules.userType.model import UserTypeModel
-from modules.userType.repository import (
+from modules.user_type.model import UserTypeModel
+from modules.user_type.repository import (
     find_user_types,
     find_user_type,
     find_exists_user_type,

@@ -1,7 +1,7 @@
 """Module for create repository for the dni type table."""
 from config.database import db
-from modules.userType.model import UserTypeModel
-from modules.userType.schema import UserTypeSchema
+from modules.user_type.model import UserTypeModel
+from modules.user_type.schema import UserTypeSchema
 
 
 def find_user_types():
