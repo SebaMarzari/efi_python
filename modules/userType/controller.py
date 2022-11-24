@@ -57,7 +57,7 @@ def get_user_type(id):
 
 
 @user_type_bp.route("/update", methods=["PUT"])
-def update_gender():
+def update_user_type():
     """Function to update a userType."""
     data = request.json
     id = data["id"]

@@ -8,6 +8,7 @@ from modules.gender.controller import gender_bp
 from modules.province.controller import province_bp
 from modules.userType.controller import user_type_bp
 from modules.locations.controller import locations_bp
+from modules.person.controller import person_bp
 
 app = Flask(__name__)
 app.config[
@@ -27,6 +28,7 @@ from modules.gender.model import GenderModel
 from modules.province.model import ProvinceModel
 from modules.userType.model import UserTypeModel
 from modules.locations.model import LocationsModel
+from modules.person.model import PersonModel
 
 # Register blueprints
 app.register_blueprint(country_bp, url_prefix="/countries")
@@ -35,6 +37,7 @@ app.register_blueprint(gender_bp, url_prefix="/gender")
 app.register_blueprint(province_bp, url_prefix="/province")
 app.register_blueprint(user_type_bp, url_prefix="/user_type")
 app.register_blueprint(locations_bp, url_prefix="/locations")
+app.register_blueprint(person_bp, url_prefix="/person")
 
 
 # class PersonSchema(ma.Schema):
