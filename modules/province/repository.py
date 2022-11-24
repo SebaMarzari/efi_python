@@ -52,4 +52,5 @@ def find_exists_province(id: str, idCountry: str) -> dict:
         .filter(ProvinceModel.id == id, ProvinceModel.idCountry == idCountry)
         .count()
     )
+    print(query)
     return query
