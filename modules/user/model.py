@@ -9,6 +9,7 @@ class UserModel(db.Model):
     __tablename__ = "user"
 
     id = db.Column(db.Integer, primary_key=True)
+    userName = db.Column(db.String(50), nullable=False)
     password = db.Column(db.String(255), nullable=False)
     idTypeUser = db.Column(
         db.Integer, ForeignKey(UserTypeModel.id), nullable=False

@@ -10,6 +10,7 @@ def find_users():
     query = (
         db.session.query(
             UserModel.id,
+            UserModel.userName,
             UserTypeModel.id.label("idTypeUser"),
             UserTypeModel.name.label("type_user_name"),
             UserModel.uploadDate,
@@ -29,6 +30,7 @@ def find_user(id: str) -> dict:
     query = (
         db.session.query(
             UserModel.id,
+            UserModel.userName,
             UserTypeModel.id.label("idTypeUser"),
             UserTypeModel.name.label("type_user_name"),
             UserModel.uploadDate,

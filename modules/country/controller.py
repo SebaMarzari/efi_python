@@ -7,7 +7,7 @@ from modules.country.repository import (
     find_exists_country,
 )
 from sqlalchemy import insert, update
-
+from decorators import token_required
 
 country_bp = Blueprint("country", __name__)
 

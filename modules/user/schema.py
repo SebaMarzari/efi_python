@@ -10,6 +10,7 @@ class UserSchema(ma.Schema):
     uploadDate = fields.DateTime(attribute="uploadDate")
     idPerson = fields.Integer(attribute="idPerson")
     person_name = fields.String(attribute="person_name")
+    userName = fields.String(attribute="userName")
 
 
 class UserPasswordSchema(ma.Schema):
