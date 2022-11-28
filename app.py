@@ -12,9 +12,10 @@ from modules.person.controller import person_bp
 from modules.user.controller import user_bp
 
 app = Flask(__name__)
-app.config[
-    "SQLALCHEMY_DATABASE_URI"
-] = "mysql+pymysql://BD2021:BD2021itec@143.198.156.171/python_efi_mar_pal_sch"
+app.config['MYSQL_HOST'] = '143.198.156.171'
+app.config['MYSQL_USER'] = 'BD2021'
+app.config['MYSQL_PASSWORD'] = 'BD2021itec'
+app.config['MYSQL_DB'] = 'python_efi_mar_pal_sch'
 app.config["SECRET_KEY"] = "acalepongoloquequiera"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 app.config["pydev_do_not_trace"] = True
