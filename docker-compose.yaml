@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+  blog:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - "${WEB_PORT:-5000}:5000"
+    environment:
+      - MSQL_CONNECTION=mysql...://root@db/dbname
+    command: python3 -m flask run --host=0.0.0.0
+    stdin_open: true
+    tty: true
+  db:
+    image: mysql
+    # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
+    # (this is just an example, not intended to be a production configuration)
+    ports:
+      - 3307:3306
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=example
