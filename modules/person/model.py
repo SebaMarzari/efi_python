@@ -21,4 +21,4 @@ class PersonModel(db.Model):
     uploadDate = db.Column(
         db.TIMESTAMP, server_default=func.now(), nullable=True
     )
-    active = db.Column(db.Boolean, nullable=True, server_default="true")
+    active = db.Column(db.Boolean, nullable=True, default=True)
