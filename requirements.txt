@@ -20,3 +20,4 @@ pyparsing==3.0.9
 six==1.16.0
 SQLAlchemy==1.4.44
 Werkzeug==2.2.2
+marshmallow-sqlalchemy
