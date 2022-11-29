@@ -13,7 +13,11 @@ def find_countries():
 
 def find_country(id: str) -> dict:
     """Function to find a country."""
-    query = db.session.query(CountryModel).filter(CountryModel.id == id).frst()
+    query = db.session.query(
+            CountryModel
+        ).filter(
+            CountryModel.id == id
+        ).first()
     schema = CountrySchema().dump(query, many=False)
     return schema
 
